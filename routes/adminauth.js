@@ -67,6 +67,7 @@ router.post("/login", async (req, res) => {
 router.post("/seller/signup", async (req, res) => {
   try {
     const { phoneNumber, emailId, password } = req.body;
+console.log("phoneNumber, emailId, password",phoneNumber, emailId, password);
 
     // Check if seller already exists
     const existingSeller = await Seller.findOne({ email: emailId });

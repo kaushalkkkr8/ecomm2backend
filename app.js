@@ -598,7 +598,8 @@ app.post("/seller/send-otp", async (req, res) => {
       return res.status(404).json({ message: "Seller not found" });
     }
 
-    await sendMail(emailId, "Verification Code", `<p>Your verification code is <strong>${randomOtp}</strong>.</p>`);
+    await sendMail(emailId, "Verification Code", `<p>Your verification code is <strong>${randomOtp}</strong>.</p><p>Seller ID <strong>${sellerUser.sellerId}</strong>
+      `);
 
     console.log("Mail sent successfully");
     res.status(200).json({ message: "OTP sent successfully" });
@@ -624,6 +625,7 @@ app.post("/seller/verify-otp", async (req, res) => {
       // Update the emailVerified field to true and clear the OTP
       sellerUser.emailVerified = true;
       sellerUser.otp = null; // Clear the OTP after successful verification
+    
       await sellerUser.save();
 
       return res.status(200).json({ message: "OTP verified successfully" });
